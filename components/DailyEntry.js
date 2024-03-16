@@ -4,6 +4,7 @@ const dailyEntrySchema = new mongoose.Schema({
   id: String,
   farm: String,
   plot: String,
+  season:String,
   area: String,
   stage: String,
   type: String,
