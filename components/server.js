@@ -515,8 +515,8 @@ app.get('/dailyentry/:email', async (req, res) => {
 // POST create daily entry
 app.post('/dailyentry', async (req, res) => {
   try {
-    const { id, farm, plot, season, area, stage, type, deal, time, mean, fuel, person, quantity, moga, units, email, date } = req.body;
-    const newEntry = new DailyEntry({ id, farm, plot, season, area, stage, type, deal, time, mean, fuel, person, quantity, moga, units, email, date });
+    const { id, farm, plot, season, area, stage, type, deal, time, mean, fuel, person, quantity, moga, units, email, date, year } = req.body;
+    const newEntry = new DailyEntry({ id, farm, plot, season, area, stage, type, deal, time, mean, fuel, person, quantity, moga, units, email, date, year });
     await newEntry.save();
     res.status(201).json(newEntry);
   } catch (error) {
