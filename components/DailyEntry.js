@@ -18,6 +18,7 @@ const dailyEntrySchema = new mongoose.Schema({
   units: String,
   email: String,
   date: String,
+  year:String,
 });
 
 const DailyEntry = mongoose.model('DailyEntry', dailyEntrySchema);
