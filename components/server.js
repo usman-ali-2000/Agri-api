@@ -13,6 +13,7 @@ const Job = require('./Job');
 const DailyEntry = require('./DailyEntry');
 const Vehicle = require('./Vehicle'); 
 const FinancialSeason = require('./FinancialSeason');
+const Fuel = require('./Fuel');
 
 
 const PORT = process.env.PORT || 3000;
@@ -661,6 +662,83 @@ app.delete('/vehicle', async (req, res) => {
     }
   });
 
+
+  app.get('/fuel', async (req, res) => {
+    try {
+      const fuel = await Fuel.find();
+      res.json(fuel);
+    } catch (error) {
+      console.error('Error fetching farms', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  // GET farm by email
+  app.get('/fuel/:email', async (req, res) => {
+    try {
+      const { email } = req.params;
+      const fuel = await Fuel.find({ email: email });
+      res.json(fuel);
+    } catch (error) {
+      console.error('Error fetching farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+
+  app.get('/fuel/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const fuel = await Fuel.findById(id);
+      res.json(fuel);
+    } catch (error) {
+      console.error('Error fetching farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  // POST create farm
+  app.post('/fuel', async (req, res) => {
+    try {
+      const { email, year, date } = req.body;
+      const fuel = new Fuel({ email, fuel, date });
+      await fuel.save();
+      res.status(201).json(fuel);
+    } catch (error) {
+      console.error('Error creating farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  app.delete('/fuel', async (req, res) => {
+    try {
+      const { fuel } = req.body;
+      const deletedfuel = await Fuel.findOneAndDelete(fuel);
+      if (!deletedfuel) {
+        res.status(404).json({ message: 'Record not found' });
+      } else {
+        res.json({ message: 'Record deleted successfully' });
+      }
+    } catch (error) {
+      console.error('Error deleting farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  app.delete('/fuel/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedfuel = await Fuel.findByIdAndDelete(id);
+      if (!deletedfuel) {
+        res.status(404).json({ message: 'Record not found' });
+      } else {
+        res.json({ message: 'Record deleted successfully' });
+      }
+    } catch (error) {
+      console.error('Error deleting farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
