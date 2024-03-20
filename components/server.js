@@ -11,7 +11,8 @@ const Product = require('./Product');
 const Irrigationsr = require('./Irrigationsr');
 const Job = require('./Job');
 const DailyEntry = require('./DailyEntry');
-const Vehicle = require('./Vehicle');
+const Vehicle = require('./Vehicle'); 
+const FinancialSeason = require('./FinancialSeason');
 
 
 const PORT = process.env.PORT || 3000;
