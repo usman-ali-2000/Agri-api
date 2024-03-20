@@ -609,6 +609,59 @@ app.delete('/vehicle', async (req, res) => {
   }
 });
 
+
+  app.get('/financialseason', async (req, res) => {
+    try {
+      const financialseason = await FinancialSeason.find();
+      res.json(financialseason);
+    } catch (error) {
+      console.error('Error fetching farms', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  // GET farm by email
+  app.get('/financialseason/:email', async (req, res) => {
+    try {
+      const { email } = req.params;
+      const financialseason = await FinancialSeason.find({ email: email });
+      res.json(financialseason);
+    } catch (error) {
+      console.error('Error fetching farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  // POST create farm
+  app.post('/financialseason', async (req, res) => {
+    try {
+      const { email, year, date } = req.body;
+      const financialseason = new Farm({ email, year, date });
+      await financialseason.save();
+      res.status(201).json(financialseason);
+    } catch (error) {
+      console.error('Error creating farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  
+  // DELETE farm
+  app.delete('/financialseason', async (req, res) => {
+    try {
+      const { year } = req.body;
+      const deletedfinancialseason = await FinancialSeason.findOneAndDelete(year);
+      if (!deletedfinancialseason) {
+        res.status(404).json({ message: 'Record not found' });
+      } else {
+        res.json({ message: 'Record deleted successfully' });
+      }
+    } catch (error) {
+      console.error('Error deleting farm', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });
