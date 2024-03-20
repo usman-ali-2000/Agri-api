@@ -636,7 +636,7 @@ app.delete('/vehicle', async (req, res) => {
   app.post('/financialseason', async (req, res) => {
     try {
       const { email, year, date } = req.body;
-      const financialseason = new Farm({ email, year, date });
+      const financialseason = new FinancialSeason({ email, year, date });
       await financialseason.save();
       res.status(201).json(financialseason);
     } catch (error) {
