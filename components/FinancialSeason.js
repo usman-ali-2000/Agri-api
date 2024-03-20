@@ -5,7 +5,7 @@ const financialseasonSchema = new mongoose.Schema({
     email:{
       type: String,
     },
-    farm:{
+    year:{
         type: String,
     },
     date:{
