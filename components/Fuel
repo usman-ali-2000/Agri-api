@@ -4,7 +4,7 @@ const fuelSchema = new mongoose.Schema({
     email:{
       type: String,
     },
-    fuel:{
+    fuelAmount:{
         type: String,
     },
     date:{
