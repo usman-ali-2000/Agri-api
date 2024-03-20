@@ -506,7 +506,7 @@ app.post('/job', async (req, res) => {
 app.get('/dailyentry/:email', async (req, res) => {
   try {
     const { email } = req.params;
-    const entries = await DailyEntry.find({ email: email });
+    const entries = await DailyEntry.find({ email: email }).sort({_id:-1});
     res.json(entries);
   } catch (error) {
     console.error('Error fetching daily entries', error);
