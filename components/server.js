@@ -700,7 +700,7 @@ app.delete('/vehicle', async (req, res) => {
   // POST create farm
   app.post('/fuel', async (req, res) => {
     try {
-      const { email, year, date } = req.body;
+      const { email, fuel, date } = req.body;
       const fuel = new Fuel({ email, fuel, date });
       await fuel.save();
       res.status(201).json(fuel);
