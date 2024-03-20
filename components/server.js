@@ -701,7 +701,7 @@ app.delete('/vehicle', async (req, res) => {
   app.post('/fuel', async (req, res) => {
     try {
       const { email, fuelAmount, date } = req.body;
-      const fuel = new Fuel({ email, fuel:fuelAmount, date });
+      const fuel = new Fuel({ email, fuelAmount, date });
       await fuel.save();
       res.status(201).json(fuel);
     } catch (error) {
