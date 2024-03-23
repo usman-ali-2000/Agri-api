@@ -514,6 +514,16 @@ app.get('/dailyentry/:email', async (req, res) => {
   }
 });
 
+app.get('/dailyentry', async (req, res) => {
+  try {
+    const entries = await DailyEntry.find().sort({_id:-1});
+    res.json(entries);
+  } catch (error) {
+    console.error('Error fetching daily entries', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 // POST create daily entry
 app.post('/dailyentry', async (req, res) => {
   try {
