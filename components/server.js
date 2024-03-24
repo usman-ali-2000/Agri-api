@@ -503,9 +503,9 @@ app.post('/job', async (req, res) => {
   }
 });
 
-app.get('/dailyentry/:date', async (req, res) => {
+app.get('/dailyentry/:day/:month/:year', async (req, res) => {
   try {
-    const { date } = req.params;
+    const { day, month, year } = req.params;
     const [day, month, year] = date.split('/').map(Number); // Parse date into day, month, and year
     const entries = await DailyEntry.find({ date: `${day}/${month}/${year}` }).sort({_id:-1});
     res.json(entries);
