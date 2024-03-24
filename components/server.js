@@ -506,14 +506,15 @@ app.post('/job', async (req, res) => {
 app.get('/dailyentry/:day/:month/:year', async (req, res) => {
   try {
     const { day, month, year } = req.params;
-    const [day, month, year] = date.split('/').map(Number); // Parse date into day, month, and year
-    const entries = await DailyEntry.find({ date: `${day}/${month}/${year}` }).sort({_id:-1});
+    const [parsedDay, parsedMonth, parsedYear] = `${day}/${month}/${year}`.split('/').map(Number); // Parse date into day, month, and year
+    const entries = await DailyEntry.find({ date: `${parsedDay}/${parsedMonth}/${parsedYear}` }).sort({_id:-1});
     res.json(entries);
   } catch (error) {
     console.error('Error fetching daily entries', error);
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 app.get('/dailyentry/:email', async (req, res) => {
   try {
