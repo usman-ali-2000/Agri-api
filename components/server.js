@@ -503,6 +503,17 @@ app.post('/job', async (req, res) => {
   }
 });
 
+app.get('/dailyentry/:date', async (req, res) => {
+  try {
+    const { date } = req.params;
+    const entries = await DailyEntry.find({ date: date }).sort({_id:-1});
+    res.json(entries);
+  } catch (error) {
+    console.error('Error fetching daily entries', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.get('/dailyentry/:email', async (req, res) => {
   try {
     const { email } = req.params;
