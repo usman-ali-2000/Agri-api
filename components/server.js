@@ -7,7 +7,8 @@ const Farm = require('./Farm');
 const Variety = require('./Variety');
 const Plot = require('./Plot');
 const Category = require('./Category'); 
-const Product = require('./Product');
+const Product = require('./Product'); 
+const ProductCreate = require('./ProductCreate');
 const Irrigationsr = require('./Irrigationsr');
 const Job = require('./Job');
 const DailyEntry = require('./DailyEntry');
@@ -330,6 +331,61 @@ app.post('/product', async (req, res) => {
     res.status(201).json(newProduct);
   } catch (error) {
     console.error('Error creating product', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.delete('/product/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      res.status(404).json({ message: 'Category not found' });
+    } else {
+      res.json({ message: 'Category deleted successfully' });
+    }
+  } catch (error) {
+    console.error('Error deleting category', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+app.get('/productcreate', async (req, res) => {
+  try {
+    const productcreate = await ProductCreate.find();
+    res.json(productcreate);
+  } catch (error) {
+    console.error('Error fetching products', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// POST create product
+app.post('/productcreate', async (req, res) => {
+  try {
+    const { email, category, product, date } = req.body;
+    const newProduct = new ProductCreate({ email, category, product, date });
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (error) {
+    console.error('Error creating product', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.delete('/productcreate/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedProduct = await ProductCreate.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      res.status(404).json({ message: 'Category not found' });
+    } else {
+      res.json({ message: 'Category deleted successfully' });
+    }
+  } catch (error) {
+    console.error('Error deleting category', error);
     res.status(500).send('Internal Server Error');
   }
 });
