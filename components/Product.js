@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
   product: String,
   qty: Number,
   unit: String,
-  date: Date
+  date: String,
 });
 
 const Product = mongoose.model('Product', productSchema);
